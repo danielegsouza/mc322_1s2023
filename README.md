@@ -1,2 +1,3 @@
 # mc322_1s2023
-Programação Orientada a Objetos
+
+Laboratório de Programação Orientada a Objetos
