@@ -1,6 +1,8 @@
+
 package mc322_lab02;
 
 public class Seguradora {
+	
 	private String nome;
 	private String telefone;
 	private String email;
