@@ -1,4 +1,6 @@
 package lab03;
+//import java.util.ArrayList;
+import java.util.List;
 
 public class Seguradora {
 	
@@ -17,7 +19,6 @@ public class Seguradora {
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
-		// inicializar listas?
 	}
 	
 	//Getters e setters
@@ -53,5 +54,13 @@ public class Seguradora {
 	
 	public void setEndereco(String endereco) {
 		this.endereco =  endereco;
+	}
+	
+	public boolean cadastrarCliente(Cliente cliente) {
+		return;
+	}
+	
+	public boolean removerCliente(String cliente) {
+		return;
 	}
 }

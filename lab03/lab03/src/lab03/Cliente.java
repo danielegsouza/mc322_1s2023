@@ -1,27 +1,27 @@
 package lab03;
+import java.util.List;
+import java.time.LocalDate;
 
 public class Cliente {
 	
 	private String nome; 
 	private String endereco;
-	private Date dataLicenca;
+	private LocalDate dataLicenca;
 	private String educacao;
 	private String genero;
 	private String classeEconomica;
 	private List <Veiculo> listaVeiculos;
 	
 	
-	
 	//Construtor
 	
-	public Cliente(String nome, String endereco, Date dataLicenca, String  educacao, String genero, String classeEconomica, List <Veiculo> listaVeiculos)  {
+	public Cliente(String nome, String endereco, LocalDate dataLicenca, String  educacao, String genero, String classeEconomica, List <Veiculo> listaVeiculos)  {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.dataLicenca = dataLicenca;
 		this.educacao= educacao;
 		this.genero = genero;
 		this.classeEconomica = classeEconomica;
-		this.listaVeiculos = listaVeiculos;
 	}
 		
 	public String getNome() {
@@ -43,21 +43,21 @@ public class Cliente {
 	}
 	
 	
-	public String getDataLicenca() {
+	public LocalDate getDataLicenca() {
 		return dataLicenca;
 	}
 	
 	
-	public void setDataLicenca(String dataLicenca) {
+	public void setDataLicenca(LocalDate dataLicenca) {
 		this.dataLicenca = dataLicenca;
 	}
 	
-	public int getEducacao() {
+	public String getEducacao() {
 		return educacao;
 	}
 	
 	
-	public void setEducacao(int educacao) {
+	public void setEducacao(String educacao) {
 		this.educacao = educacao;
 	}
 	
@@ -79,7 +79,6 @@ public class Cliente {
 		this.classeEconomica = classeEconomica;
 	}
 	
-	//Getter e setter pra listas?
 	
 	
 }

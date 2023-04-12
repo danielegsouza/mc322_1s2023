@@ -1,7 +1,27 @@
 package lab03;
+import java.time.LocalDate;
+import java.util.List;
 
 public class ClientePF extends Cliente {
 	private String cpf;
+	private LocalDate dataNascimento;
+	
+	public ClientePF(String nome, String endereco, LocalDate dataLicenca,
+			String educacao, String genero, String classeEconomica,
+			List <Veiculo> listaVeiculos,String cpf, LocalDate dataNascimento){
+		
+		//chama o construtor da superclasse
+		super(nome,endereco,dataLicenca,educacao,genero,classeEconomica,
+				listaVeiculos);
+		
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+	}
+	
+	//oque é o retorno
+	public String toString() {
+		return cpf;
+	}
 	
 	public boolean validarCPF(String cpf) {
 			
