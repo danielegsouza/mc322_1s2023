@@ -3,25 +3,74 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ClientePF extends Cliente {
-	private String cpf;
+	private final String cpf;
+	private String genero;
+	private LocalDate dataLicenca;
+	private String educacao;
 	private LocalDate dataNascimento;
+	private String classeEconomica;
 	
-	public ClientePF(String nome, String endereco, LocalDate dataLicenca,
-			String educacao, String genero, String classeEconomica,
-			List <Veiculo> listaVeiculos,String cpf, LocalDate dataNascimento){
+	public ClientePF(String nome, String endereco, List<Veiculo> listaVeiculos, String cpf, String genero,
+             LocalDate dataLicenca, String educacao, LocalDate dataNascimento, String classeEconomica) {
 		
-		//chama o construtor da superclasse
-		super(nome,endereco,dataLicenca,educacao,genero,classeEconomica,
-				listaVeiculos);
-		
+		super(nome, endereco, listaVeiculos);
 		this.cpf = cpf;
+		this.genero = genero;
+		this.dataLicenca = dataLicenca;
+		this.educacao = educacao;
 		this.dataNascimento = dataNascimento;
+		this.classeEconomica = classeEconomica;
+}
+
+	
+	public String getCpf() {
+	    return cpf;
+	}
+	      
+	
+    public LocalDate getDataLicenca() {
+		return dataLicenca;
 	}
 	
-	//oque é o retorno
-	public String toString() {
-		return cpf;
+	
+	public void setDataLicenca(LocalDate dataLicenca) {
+		this.dataLicenca = dataLicenca;
 	}
+	
+	public String getEducacao() {
+		return educacao;
+	}
+	
+	
+	public void setEducacao(String educacao) {
+		this.educacao = educacao;
+	}
+	
+	public String getGenero() {
+		return genero;
+	}
+	
+	
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+	
+	public String getClasseEconomica() {
+		return classeEconomica;
+	}
+	
+	
+	public void setClasseEconomica(String classeEconomica) {
+		this.classeEconomica = classeEconomica;
+	}
+	
+	
+	public String toString() {
+		return "ClientePF [CPF = " + cpf + ", genero = " + genero + ", dataLicenca = " + dataLicenca + ", educacao = " + educacao
+				+ ", dataNascimento = " + dataNascimento + ", classeEconomica = " + classeEconomica + ", nome=" + getNome()
+				+ ", endereco = " + getEndereco() + "]";
+	}
+	
 	
 	public boolean validarCPF(String cpf) {
 			

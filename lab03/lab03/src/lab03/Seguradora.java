@@ -1,6 +1,6 @@
 package lab03;
-//import java.util.ArrayList;
 import java.util.List;
+//import java.util.ArrayList;
 
 public class Seguradora {
 	
@@ -8,17 +8,20 @@ public class Seguradora {
 	private String telefone;
 	private String email;
 	private String endereco;
-	private List <Sinistro> listaSinistros;
-	private List <Sinistro> listaClientes;
+	private List<Sinistro> listaSinistros;
+	private List<Cliente> listaClientes;
 	
 	
 	
 	//Construtor
-	public Seguradora(String nome, String telefone, String email, String endereco) {
+	public Seguradora(String nome, String telefone, String email, String endereco,
+			List<Sinistro> listaSinistros,List<Cliente> listaClientes) {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
+		this.listaSinistros = listaSinistros;
+		this.listaClientes = listaClientes;
 	}
 	
 	//Getters e setters
@@ -56,11 +59,71 @@ public class Seguradora {
 		this.endereco =  endereco;
 	}
 	
+	public List<Sinistro> getListaSinistros() {
+        return listaSinistros;
+    }
+
+    public void setListaSinistros(List<Sinistro> listaSinistros) {
+        this.listaSinistros = listaSinistros;
+    }
+
+    public List<Cliente> getListaClientes() {
+        return listaClientes;
+    }
+
+    public void setListaClientes(List<Cliente> listaClientes) {
+        this.listaClientes = listaClientes;
+    }
+    
+    //Metodos implementados
+    
 	public boolean cadastrarCliente(Cliente cliente) {
-		return;
+		return this.listaClientes.add(cliente);
 	}
 	
 	public boolean removerCliente(String cliente) {
-		return;
+		for(int i= 0; i < listaClientes.size(); i++) {
+			Cliente nomeCliente = listaClientes.get(i);
+			if(nomeCliente.getNome().equals(cliente)) {
+				listaClientes.remove(i);
+				return true;
+			}
+		}
+		return false;
+		
 	}
+	
+	//DUVIDA AQUI
+	public void listarClientes(String tipoCliente) {
+		
+		for (int i = 0; i < listaClientes.size(); i++) {
+			Cliente cliente = listaClientes.get(i);
+			if(cliente.getTipo().equals(tipoCliente)) {
+				System.out.println(cliente.getNome());
+			}
+		}
+	}
+	
+	public boolean gerarSinistro(String cliente) {
+		return false;
+	}
+	 public boolean visualizarSinistro(String cliente) {
+	        for (int i = 0; i < listaSinistros.size(); i++) {
+	        	Sinistro sinistro = listaSinistros.get(i);
+	            if (sinistro.getCliente().equals(cliente)) {
+	                System.out.println(sinistro.toString());
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
+
+	    public void listarSinistros() {
+	    	for (int i = 0; i < listaSinistros.size(); i++) {
+	        	Sinistro sinistro = listaSinistros.get(i);
+	        	System.out.println(sinistro.toString());
+	    }
+	    }
+	        
+	
 }
