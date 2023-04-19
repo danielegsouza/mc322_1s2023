@@ -7,7 +7,6 @@ public class Sinistro {
 	private final int id;
 	private String data;
 	private String endereco;
-	//desse jeito?
 	private Seguradora seguradora;
 	private Veiculo veiculo;
 	private Cliente cliente;

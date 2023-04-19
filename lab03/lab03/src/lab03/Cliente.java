@@ -7,13 +7,15 @@ public class Cliente {
 	private String nome; 
 	private String endereco;
 	private List <Veiculo> listaVeiculos;
+	private String tipoCliente;
 	
 	//Construtor
 	
-	public Cliente(String nome, String endereco, List<Veiculo> listaVeiculos){
+	public Cliente(String nome, String endereco, List<Veiculo> listaVeiculos,String tipoCliente){
 		this.nome = nome;
 		this.endereco = endereco;
 		this.listaVeiculos = listaVeiculos;
+		this.tipoCliente = tipoCliente;
 	}
 		
 	//Getters e Setters 
@@ -43,12 +45,21 @@ public class Cliente {
         this.listaVeiculos = listaVeiculos;
     }
 
+	public String getTipoCliente() {
+		return tipoCliente;
+	}
+	
+	public void setTipoCliente(String tipoCliente) {
+		this.tipoCliente = tipoCliente;
+		
+	}
 	
     public String toString() {
         return "Cliente{" +
                 "nome='" + nome + '\'' +
                 ", endereco='" + endereco + '\'' +
                 ", listaVeiculos=" + listaVeiculos +
+                 ", tipoCliente=" + tipoCliente +
                 '}';
     }
 }

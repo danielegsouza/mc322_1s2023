@@ -93,30 +93,34 @@ public class Seguradora {
 		
 	}
 	
-	//DUVIDA AQUI
+	//ver se funciona
 	public void listarClientes(String tipoCliente) {
 		
 		for (int i = 0; i < listaClientes.size(); i++) {
 			Cliente cliente = listaClientes.get(i);
-			if(cliente.getTipo().equals(tipoCliente)) {
+			if(cliente.getTipoCliente().equals(tipoCliente)) {
 				System.out.println(cliente.getNome());
 			}
 		}
 	}
 	
+	//falta implementar
 	public boolean gerarSinistro(String cliente) {
 		return false;
 	}
+	
+	
 	 public boolean visualizarSinistro(String cliente) {
-	        for (int i = 0; i < listaSinistros.size(); i++) {
-	        	Sinistro sinistro = listaSinistros.get(i);
-	            if (sinistro.getCliente().equals(cliente)) {
-	                System.out.println(sinistro.toString());
-	                return true;
-	            }
-	        }
-	        return false;
-	    }
+        for (int i = 0; i < listaSinistros.size(); i++) {
+        	Sinistro sinistro = listaSinistros.get(i);
+        	//tipos diferentes
+            if (sinistro.getCliente().equals(cliente)) {
+                System.out.println(sinistro.toString());
+                return true;
+            }
+        }
+        return false;
+    }
 
 	    public void listarSinistros() {
 	    	for (int i = 0; i < listaSinistros.size(); i++) {

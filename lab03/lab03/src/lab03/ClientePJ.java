@@ -6,11 +6,11 @@ public class ClientePJ extends Cliente{
 	private final String cnpj;
 	private LocalDate dataFundacao;
 	
-	public ClientePJ(String nome, String endereco, List<Veiculo> listaVeiculos, String cnpj,
-			LocalDate dataFundacao) {
-		//Chama o construtor da superclasse
+	public ClientePJ(String nome, String endereco, List<Veiculo> listaVeiculos,
+			String tipoCliente,String cnpj,LocalDate dataFundacao) {
 		
-		super(nome,endereco,listaVeiculos);
+		//Chama o construtor da superclasse
+		super(nome,endereco,listaVeiculos, tipoCliente);
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
 	}
@@ -30,10 +30,16 @@ public class ClientePJ extends Cliente{
     }
     
     public static boolean validarCNPJ(String cnpj) {
-      
+    	
+    	int primeiroDigito = 0;
+		int segundoDigito = 0;
+		int soma = 0;
+		int peso = 2;
+		int resto = 0;
+		
+		
         cnpj = cnpj.replaceAll("[^0-9]", "");
 
-       
         if (cnpj.length() != 14) {
             return false;
         }
@@ -53,12 +59,67 @@ public class ClientePJ extends Cliente{
 		}
 
 		
-        // Verifica se os digitos verificadoes estao corretos
+        // Verifica se os digitos verificadores estao corretos
 		
-		int primeiroDigito = 0;
-		int segundoDigito = 0;
+		for (int i = 11; i >= 0; i--) {
+			 int valor = Character.getNumericValue(cnpj.charAt(i));
+		     soma += valor * peso;
+		     
+		     if(peso == 9) {
+		    	 peso = 2;
+		     }
+		     
+		     else {
+		    	 peso++;
+		     }
+		}
 		
+		resto = soma % 11 ; 
 		
+		if(resto < 2) {
+			primeiroDigito =0;
+		}
+		
+		else {
+			primeiroDigito = 11 - resto;
+		}
+		
+
+	    if (primeiroDigito != Character.getNumericValue(cnpj.charAt(12))) {
+	        return false;
+	    }
+
+	    // Verifica o segundo dígito verificador
+	    soma = 0;
+	    peso = 2;
+	    for (int i = 12; i >= 0; i--) {
+	        int valor = Character.getNumericValue(cnpj.charAt(i));
+	        soma += valor * peso;
+
+		     if(peso == 9) {
+		    	 peso = 2;
+		     }
+		     
+		     else {
+		    	 peso++;
+		     }
+	    }
+
+	    resto = soma % 11;
+	  
+
+	    if (resto < 2) {
+	        segundoDigito = 0;
+	    } else {
+	        segundoDigito = 11 - resto;
+	    }
+
+	    // Verifica o segundo dígito verificador
+	    if (segundoDigito != Character.getNumericValue(cnpj.charAt(13))) {
+	        return false;
+	    }
+
+	    return true;
 	
     }
 
