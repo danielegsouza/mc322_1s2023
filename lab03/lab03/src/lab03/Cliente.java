@@ -58,10 +58,10 @@ public class Cliente {
 	
     public String toString() {
         return "Cliente{" +
-                "nome='" + nome + '\'' +
-                ", endereco='" + endereco + '\'' +
+                "nome='" + getNome() + '\'' +
+                ", endereco='" + getEndereco() + '\'' +
                 ", listaVeiculos=" + listaVeiculos +
-                 ", tipoCliente=" + tipoCliente +
+                 ", tipoCliente=" + getTipoCliente() +
                 '}';
     }
 }

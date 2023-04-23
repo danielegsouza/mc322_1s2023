@@ -65,7 +65,7 @@ public class ClientePJ extends Cliente{
 			 int valor = Character.getNumericValue(cnpj.charAt(i));
 		     soma += valor * peso;
 		     
-		     if(peso == 9) {
+		     if (peso == 9) {
 		    	 peso = 2;
 		     }
 		     
@@ -76,7 +76,7 @@ public class ClientePJ extends Cliente{
 		
 		resto = soma % 11 ; 
 		
-		if(resto < 2) {
+		if (resto < 2) {
 			primeiroDigito =0;
 		}
 		
@@ -110,7 +110,9 @@ public class ClientePJ extends Cliente{
 
 	    if (resto < 2) {
 	        segundoDigito = 0;
-	    } else {
+	    }
+	    
+	    else {
 	        segundoDigito = 11 - resto;
 	    }
 

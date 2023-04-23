@@ -16,6 +16,8 @@ public class Veiculo {
 		this.anoFabricacao = anoFabricacao;
 	}
 	
+	
+	//Getters e Setters 
 	public String getPlaca() {
 		return placa;
 	}

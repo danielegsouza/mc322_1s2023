@@ -1,6 +1,5 @@
 package lab03;
 import java.util.List;
-//import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class Seguradora {
@@ -11,8 +10,6 @@ public class Seguradora {
 	private String endereco;
 	private List<Sinistro> listaSinistros;
 	private List<Cliente> listaClientes;
-	
-	
 	
 	//Construtor
 	public Seguradora(String nome, String telefone, String email, String endereco,
@@ -83,9 +80,10 @@ public class Seguradora {
 	}
 	
 	public boolean removerCliente(String cliente) {
-		for(int i= 0; i < listaClientes.size(); i++) {
+		for (int i= 0; i < listaClientes.size(); i++) {
 			Cliente nomeCliente = listaClientes.get(i);
-			if(nomeCliente.getNome().equals(cliente)) {
+			
+			if (nomeCliente.getNome().equals(cliente)) {
 				listaClientes.remove(i);
 				return true;
 			}
@@ -98,7 +96,8 @@ public class Seguradora {
 	public void listarClientes(String tipoCliente) {
 		for (int i = 0; i < listaClientes.size(); i++) {
 			Cliente cliente = listaClientes.get(i);
-			if(cliente.getTipoCliente().equals(tipoCliente)) {
+			
+			if (cliente.getTipoCliente().equals(tipoCliente)) {
 				System.out.println(cliente.getNome());
 			}
 		}
@@ -118,9 +117,11 @@ public class Seguradora {
 	
 	
 	 public boolean visualizarSinistro(String cliente) {
+		 
         for (int i = 0; i < listaSinistros.size(); i++) {
         	Sinistro sinistro = listaSinistros.get(i);
-            if (sinistro.getCliente().equals(cliente)) {
+        	
+            if (sinistro.getCliente().getNome().equals(cliente)) {
                 System.out.println(sinistro.toString());
                 return true;
             }
@@ -129,6 +130,7 @@ public class Seguradora {
     }
 
 	    public void listarSinistros() {
+	    	
 	    	for (int i = 0; i < listaSinistros.size(); i++) {
 	        	Sinistro sinistro = listaSinistros.get(i);
 	        	System.out.println(sinistro.toString());
