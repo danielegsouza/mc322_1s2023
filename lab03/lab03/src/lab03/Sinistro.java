@@ -1,11 +1,12 @@
 package lab03;
 
 import java.util.Random;
+import java.time.LocalDate;
 
 public class Sinistro {
 	
 	private final int id;
-	private String data;
+	private LocalDate data;
 	private String endereco;
 	private Seguradora seguradora;
 	private Veiculo veiculo;
@@ -14,7 +15,7 @@ public class Sinistro {
 	
 	//Construtor que gera um ID aleatorio para o sinistro
 	
-	public Sinistro(String data, String endereco, Seguradora seguradora,
+	public Sinistro(LocalDate data, String endereco, Seguradora seguradora,
 			Veiculo veiculo, Cliente cliente) {
 		Random random = new Random(); 
 		this.id = random.nextInt(10000);
@@ -30,11 +31,11 @@ public class Sinistro {
 		return id;
 	}
 	
-	public String getData(){
+	public LocalDate getData(){
 		return data;
 	}
 	
-	public void setData(String data){
+	public void setData(LocalDate data){
 		this.data = data;
 	}
 	
@@ -71,15 +72,15 @@ public class Sinistro {
         this.cliente = cliente;
     }
 
-   // @Override
+   
     public String toString() {
         return "Sinistro{" +
-                "ID=" + id +
-                ", data='" + data + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", seguradora=" + seguradora +
-                ", veiculo=" + veiculo +
-                ", cliente=" + cliente +
+                "ID=" + getId() +
+                ", data='" + getData() + '\'' +
+                ", endereco='" + getEndereco() + '\'' +
+                ", seguradora=" + getSeguradora() +
+                ", veiculo=" + getVeiculo() +
+                ", cliente=" + getCliente() +
                 '}';
     }
 

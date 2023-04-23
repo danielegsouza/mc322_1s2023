@@ -1,6 +1,6 @@
 package lab03;
 import java.util.List;
-
+import java.util.ArrayList;
 
 public class Cliente {
 	
@@ -11,10 +11,10 @@ public class Cliente {
 	
 	//Construtor
 	
-	public Cliente(String nome, String endereco, List<Veiculo> listaVeiculos,String tipoCliente){
+	public Cliente(String nome, String endereco,String tipoCliente){
 		this.nome = nome;
 		this.endereco = endereco;
-		this.listaVeiculos = listaVeiculos;
+		this.listaVeiculos = new ArrayList<Veiculo>();
 		this.tipoCliente = tipoCliente;
 	}
 		
@@ -37,13 +37,6 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 	
-	public List<Veiculo> getListaVeiculos() {
-	     return listaVeiculos;
-	}
-	
-	public void setListaVeiculos(List<Veiculo> listaVeiculos) {
-        this.listaVeiculos = listaVeiculos;
-    }
 
 	public String getTipoCliente() {
 		return tipoCliente;
@@ -52,6 +45,15 @@ public class Cliente {
 	public void setTipoCliente(String tipoCliente) {
 		this.tipoCliente = tipoCliente;
 		
+	}
+	
+	public void adicionarVeiculo(Veiculo veiculo) {
+		this.listaVeiculos.add(veiculo);
+	}
+	
+	
+	public void removerVeiculo(Veiculo veiculo) {
+		this.listaVeiculos.remove(veiculo);
 	}
 	
     public String toString() {

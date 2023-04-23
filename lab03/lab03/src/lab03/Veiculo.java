@@ -53,13 +53,13 @@ public class Veiculo {
 		this.anoFabricacao = anoFabricacao;
 	}
 	
-	 //@Override
-	    public String toString() {
-	        return "Veiculo{" +
-	                "placa='" + placa + '\'' +
-	                ", marca='" + marca + '\'' +
-	                ", modelo='" + modelo + '\'' +
-	                ", anoFabricacao=" + anoFabricacao +
-	                '}';
-	    }
+
+    public String toString() {
+        return "Veiculo{" +
+                "placa='" + getPlaca() + '\'' +
+                ", marca='" + getMarca() + '\'' +
+                ", modelo='" + getModelo() + '\'' +
+                ", anoFabricacao=" + getAnoFabricacao() +
+                '}';
+    }
 }

@@ -1,6 +1,7 @@
 package lab03;
 import java.util.List;
 //import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Seguradora {
 	
@@ -93,9 +94,8 @@ public class Seguradora {
 		
 	}
 	
-	//ver se funciona
+	
 	public void listarClientes(String tipoCliente) {
-		
 		for (int i = 0; i < listaClientes.size(); i++) {
 			Cliente cliente = listaClientes.get(i);
 			if(cliente.getTipoCliente().equals(tipoCliente)) {
@@ -104,16 +104,22 @@ public class Seguradora {
 		}
 	}
 	
-	//falta implementar
-	public boolean gerarSinistro(String cliente) {
-		return false;
+	public boolean gerarSinistro(LocalDate data, String endereco,
+			Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
+		
+	    Sinistro novoSinistro = new Sinistro(data, endereco, seguradora, veiculo, cliente);
+	    
+	    if (listaSinistros.add(novoSinistro)) {
+	        return true;
+	    }
+	    return false;
 	}
+
 	
 	
 	 public boolean visualizarSinistro(String cliente) {
         for (int i = 0; i < listaSinistros.size(); i++) {
         	Sinistro sinistro = listaSinistros.get(i);
-        	//tipos diferentes
             if (sinistro.getCliente().equals(cliente)) {
                 System.out.println(sinistro.toString());
                 return true;
@@ -127,6 +133,16 @@ public class Seguradora {
 	        	Sinistro sinistro = listaSinistros.get(i);
 	        	System.out.println(sinistro.toString());
 	    }
+	    }
+	    
+	
+	    public String toString() {
+	        return "Seguradora{" +
+	                "nome='" + getNome() + '\'' +
+	                ", telefone='" + getTelefone() + '\'' +
+	                ", email='" + getEmail() + '\'' +
+	                ", endereco=" + getEndereco() +
+	                '}';
 	    }
 	        
 	

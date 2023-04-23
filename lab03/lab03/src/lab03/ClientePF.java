@@ -10,11 +10,11 @@ public class ClientePF extends Cliente {
 	private LocalDate dataNascimento;
 	private String classeEconomica;
 	
-	public ClientePF(String nome, String endereco, List<Veiculo> listaVeiculos,
+	public ClientePF(String nome, String endereco,
 			String tipoCliente, String cpf, String genero, LocalDate dataLicenca,
 			String educacao, LocalDate dataNascimento, String classeEconomica) {
 		
-		super(nome, endereco, listaVeiculos, tipoCliente);
+		super(nome, endereco, tipoCliente);
 		this.cpf = cpf;
 		this.genero = genero;
 		this.dataLicenca = dataLicenca;
@@ -28,6 +28,14 @@ public class ClientePF extends Cliente {
 	    return cpf;
 	}
 	      
+	public String getGenero() {
+		return genero;
+	}
+	
+	
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
 	
     public LocalDate getDataLicenca() {
 		return dataLicenca;
@@ -47,13 +55,13 @@ public class ClientePF extends Cliente {
 		this.educacao = educacao;
 	}
 	
-	public String getGenero() {
-		return genero;
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
 	}
 	
 	
-	public void setGenero(String genero) {
-		this.genero = genero;
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 	public String getClasseEconomica() {
@@ -65,10 +73,15 @@ public class ClientePF extends Cliente {
 		this.classeEconomica = classeEconomica;
 	}
 	
-	
+	@Override
 	public String toString() {
-		return "ClientePF [CPF = " + cpf + ", genero = " + genero + ", dataLicenca = " + dataLicenca + ", educacao = " + educacao
-				+ ", dataNascimento = " + dataNascimento + ", classeEconomica = " + classeEconomica + ", nome=" + getNome()
+		return "ClientePF [CPF = " + getCpf() + 
+				", genero = " + getGenero() + ", "
+				+ "dataLicenca = " + getDataLicenca() 
+				+ ", educacao = " + getEducacao()
+				+ ", dataNascimento = " + getDataNascimento() 
+				+ ", classeEconomica = " + getClasseEconomica()
+				+ ", nome=" + getNome()
 				+ ", endereco = " + getEndereco() + "]";
 	}
 	

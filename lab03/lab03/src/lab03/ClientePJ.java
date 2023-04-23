@@ -6,11 +6,11 @@ public class ClientePJ extends Cliente{
 	private final String cnpj;
 	private LocalDate dataFundacao;
 	
-	public ClientePJ(String nome, String endereco, List<Veiculo> listaVeiculos,
+	public ClientePJ(String nome, String endereco,
 			String tipoCliente,String cnpj,LocalDate dataFundacao) {
 		
 		//Chama o construtor da superclasse
-		super(nome,endereco,listaVeiculos, tipoCliente);
+		super(nome,endereco, tipoCliente);
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
 	}
@@ -29,7 +29,7 @@ public class ClientePJ extends Cliente{
         this.dataFundacao = dataFundacao;
     }
     
-    public static boolean validarCNPJ(String cnpj) {
+    public boolean validarCNPJ(String cnpj) {
     	
     	int primeiroDigito = 0;
 		int segundoDigito = 0;
@@ -123,13 +123,13 @@ public class ClientePJ extends Cliente{
 	
     }
 
-	
+		@Override
 	    public String toString() {
 	        return "ClientePJ{" +
 	                "nome='" + getNome() + '\'' +
 	                ", endereco='" + getEndereco() + '\'' +
-	                ", cnpj='" + cnpj + '\'' +
-	                ", dataFundacao=" + dataFundacao +
+	                ", cnpj='" + getCnpj() + '\'' +
+	                ", dataFundacao=" + getDataFundacao() +
 	                '}';
 	    }
 }
