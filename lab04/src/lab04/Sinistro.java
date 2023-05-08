@@ -56,7 +56,6 @@ public class Sinistro {
 	public void setSeguradora(Seguradora seguradora) {
 		this.seguradora = seguradora;
 	}
-	
     public Veiculo getVeiculo() {
         return veiculo;
     }

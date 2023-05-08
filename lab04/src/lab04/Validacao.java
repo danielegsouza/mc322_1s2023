@@ -1,6 +1,6 @@
 package lab04;
 
-public static class Validacao {
+public class Validacao {
     
 	public static boolean validarCPF(String cpf) {
 		

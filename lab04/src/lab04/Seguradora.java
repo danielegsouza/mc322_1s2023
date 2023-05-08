@@ -131,14 +131,14 @@ public class Seguradora {
     }
 
 	    public void listarSinistros() {
-	    	
 	    	for (int i = 0; i < listaSinistros.size(); i++) {
 	        	Sinistro sinistro = listaSinistros.get(i);
 	        	System.out.println(sinistro.toString());
 	    }
 	    }
 	    
-	    
+	    //metodo que calcula a quantidade de sinistros por cliente
+	    //utilizado no metodo calcularPrecoSeguroCliente
 	    public int obterQuantidadeSinistros(String cliente) {
 	        int quantidade_de_sinistros = 0;
 	        
@@ -147,16 +147,12 @@ public class Seguradora {
 	        	Sinistro sinistro = listaSinistros.get(i);
 	        	
 	            if (sinistro.getCliente().getNome().equals(cliente)) {
-	                System.out.println(sinistro.toString());
 	                quantidade_de_sinistros++;
 	            }
 	        }
 	        
 	        return quantidade_de_sinistros;
 	    }
-
-	  
-
 	    
 	    public void calcularPrecoSeguroCliente(Cliente cliente) {
 	    	
@@ -166,7 +162,9 @@ public class Seguradora {
 
 	        if (tipoCliente.equals("PF")) {
 	            precoSeguro = ((ClientePF) cliente).calculaScore(cliente) * (1 + quantidade_de_sinistros);
-	        } else {
+	        } 
+	        
+	        else {
 	            precoSeguro = ((ClientePJ) cliente).calculaScore(cliente) * (1 + quantidade_de_sinistros);
 	        }
 
