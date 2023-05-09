@@ -164,7 +164,7 @@ public static void menu() {
                      gerarSinistro(listaSeguradoras);
                      break;
                  case TRANSFERIR_SEGURO:
-                     
+                     transferirSeguro(listaSeguradoras);
                      break;
                  case CALCULAR_RECEITA_SEGURADORA:
                      calcularReceitaSeguradora(listaSeguradoras);
@@ -702,7 +702,70 @@ public static void gerarSinistro(List<Seguradora> listaSeguradoras) {
 	}
 
 }
-}
+
+public static void transferirSeguro(List<Seguradora> listaSeguradoras) {
 	
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Nome do cliente que deseja transferir o seguro: ");
+    
+    String nomeClienteAntigo = scanner.nextLine();
+    Cliente clienteAntigo = null;
+    
+    for (Seguradora seguradora : listaSeguradoras) {
+        for (Cliente cliente : seguradora.getListaClientes()) {
+            if (cliente.getNome().equals(nomeClienteAntigo)) {
+                clienteAntigo = cliente;
+                break;
+            }
+        }
+        if (clienteAntigo != null) {
+            break;
+        }
+    }
+    if (clienteAntigo == null) {
+        System.out.println("Cliente não encontrado");
+        return;
+    }
+
+    System.out.println("Nome do cliente que receberá o seguro: ");
+    String nomeClienteNovo = scanner.nextLine();
+    Cliente clienteNovo = null;
+    Seguradora nomeSeguradora = null;
+    
+    for (Seguradora seguradora : listaSeguradoras) {
+        for (Cliente cliente : seguradora.getListaClientes()) {
+            if (cliente.getNome().equals(nomeClienteNovo)) {
+                clienteNovo = cliente;
+                nomeSeguradora = seguradora;
+                break;
+            }
+        }
+        if (clienteNovo != null) {
+            break;
+        }
+    }
+    if (clienteNovo == null) {
+        System.out.println("Cliente não encontrado");
+        return;
+    }
+
+    if (clienteAntigo.getListaVeiculos().isEmpty()) {
+        System.out.println("O cliente não possui veículos segurados");
+        return;
+    }
+
+    List<Veiculo> listaVeiculos = new ArrayList<>(clienteAntigo.getListaVeiculos());
+    clienteAntigo.getListaVeiculos().clear();
+    clienteNovo.getListaVeiculos().addAll(listaVeiculos);
+
+    //metodo calcularPrecoSeguroCliente calcula o novo preco e ja seta o novo valor pro cliente
+    nomeSeguradora.calcularPrecoSeguroCliente(clienteNovo);
+    
+
+    System.out.println("Transferência de seguro realizada com sucesso.");
+}
+
+}
 	
 
