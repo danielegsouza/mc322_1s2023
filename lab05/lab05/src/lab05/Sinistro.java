@@ -1,4 +1,4 @@
-package lab04;
+package lab05;
 
 import java.util.Random;
 import java.time.LocalDate;
@@ -11,12 +11,15 @@ public class Sinistro {
 	private Seguradora seguradora;
 	private Veiculo veiculo;
 	private Cliente cliente;
+	private Condutor condutor;
+	private Seguro seguro;
 	
 	
 	//Construtor que gera um ID aleatorio para o sinistro
 	
-	public Sinistro(LocalDate data, String endereco, Seguradora seguradora,
-			Veiculo veiculo, Cliente cliente) {
+	public Sinistro(LocalDate data, String endereco,Seguradora seguradora, 
+			Veiculo veiculo, Cliente cliente, Condutor condutor,
+			Seguro seguro) {
 		Random random = new Random(); 
 		this.id = random.nextInt(10000);
 		this.data = data;
@@ -24,6 +27,8 @@ public class Sinistro {
 		this.seguradora = seguradora;
 		this.veiculo = veiculo;
 		this.cliente = cliente;
+		this.condutor = condutor;
+		this.seguro = seguro;
 		
 	}
 	
@@ -71,15 +76,33 @@ public class Sinistro {
         this.cliente = cliente;
     }
 
+	public Condutor getCondutor() {
+        return condutor;
+    }
+    
+    public void setCondutor(Condutor condutor) {
+        this.condutor = condutor;
+    }
+    
+    public Seguro getSeguro() {
+        return seguro;
+    }
+    
+    public void setSeguro(Seguro seguro) {
+        this.seguro = seguro;
+    }
+
    
     public String toString() {
         return "Sinistro{" +
-                "ID=" + getId() +
-                ", data='" + getData() + '\'' +
-                ", endereco='" + getEndereco() + '\'' +
-                ", seguradora=" + getSeguradora() +
-                ", veiculo=" + getVeiculo() +
-                ", cliente=" + getCliente() +
+                "ID=" + id +
+                ", data='" + data + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", seguradora='" + seguradora + '\'' +
+                ", veiculo='" + veiculo + '\'' +
+                ", cliente='" + cliente + '\'' +
+                ", condutor=" + condutor +
+                ", seguro=" + seguro +
                 '}';
     }
 
