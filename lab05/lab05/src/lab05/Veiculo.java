@@ -5,15 +5,15 @@ public class Veiculo {
 	private String placa; 
 	private String marca;
 	private String modelo;
-	private String email;
+	private int anoFabricacao;
 	
 	
 	//Construtor
-	public Veiculo(String placa, String marca, String modelo, String email) {
+	public Veiculo(String placa, String marca, String modelo, int anoFabricacao) {
 		this.placa = placa;
 		this.marca = marca;
 		this.modelo = modelo;
-		this.email = email;
+		this.anoFabricacao = anoFabricacao;
 	}
 	
 	
@@ -46,12 +46,12 @@ public class Veiculo {
 		this.modelo = modelo;
 	}
 	
-	public String getEmail() {
-        return email;
+	public int getAnoFabricacao() {
+        return anoFabricacao;
     }
     
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAnoFabricacao(int anoFabricacao) {
+        this.anoFabricacao = anoFabricacao;
     }
 	
 
@@ -60,7 +60,7 @@ public class Veiculo {
                 "placa='" + placa+ '\'' +
                 ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
-                ", email=" + email +
+                ", anoFabricacao=" + anoFabricacao +
                 '}';
     }
 }

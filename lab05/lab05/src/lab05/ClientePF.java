@@ -66,32 +66,22 @@ public class ClientePF extends Cliente {
         return this.listaVeiculos.add(veiculo);
     }
 
-    //Atualiza lista de veiculos do cliente
-    public boolean atualizarVeiculos(ArrayList<Veiculo> listaVeiculos) {
-        this.listaVeiculos.clear(); // Limpa a lista atual
-        return this.listaVeiculos.addAll(listaVeiculos); // Adiciona os novos veículos
+    //Remove um veiculo da lista de veiculos do cliente
+    public boolean removerVeiculos(Veiculo veiculo) {
+        return this.listaVeiculos.remove(veiculo);
     }
-
-
-    //Percorre todos os seguros e adiciona os sinistros de cada um deles em uma lista geral
+    
     @Override
-    public ArrayList<Sinistro> getSinistros() {
-        ArrayList<Sinistro> sinistros = new ArrayList<>();
-        
-        for (Veiculo veiculo : this.listaVeiculos) {
-            sinistros.addAll(veiculo.getSinistros());
-        }
-        return sinistros;
+    public String toString() {
+        return "ClientePF{" +
+                "cpf='" + cpf + '\'' +
+                ", genero='" + genero + '\'' +
+                ", educacao='" + educacao + '\'' +
+                ", dataNascimento=" + dataNasc +
+                '}';
     }
-}
 
-    //duvida aqui
-    @Override
-    public ArrayList<Seguro> getSeguros() {
-        ArrayList<Seguro> seguros = new ArrayList<Seguro>();
-        for (Seguradora seguradora : listaSeguradoras) {
-            seguros.addAll(seguros.getSeguros());
-        }
-        return seguros;
-    }
+
 }
+  
+

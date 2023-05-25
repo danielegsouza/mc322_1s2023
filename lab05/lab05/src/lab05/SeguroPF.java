@@ -2,27 +2,33 @@ package lab05;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.Period;
 
 public class SeguroPF extends Seguro {
 
-    private Frota frota;
+    private Veiculo veiculo;
     private ClientePF cliente;
-
+    private ArrayList<Sinistro> listaSinistros;
+    private ArrayList<Condutor> listaCondutores;
+    
     public SeguroPF(LocalDate dataInicio, LocalDate dataFim, Seguradora seguradora, 
-    		ArrayList<Sinistro> listaSinistros, ArrayList<Condutor>listaCondutores,
-    		int valorMensal, Frota frota, ClientePF cliente) {
+    		double valorMensal, Veiculo veiculo, ClientePF cliente) {
         super(dataInicio, dataFim, seguradora, valorMensal);
-        this.frota = frota;
+        this.listaSinistros = new ArrayList<Sinistro>();
+        this.listaCondutores = new ArrayList<Condutor>();
+        this.veiculo = veiculo;
         this.cliente = cliente;
+   
+        
     }
 
     // Getters and setters
-    public Frota getFrota() {
-        return frota;
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
 
-    public void setFrota(Frota frota) {
-        this.frota = frota;
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
 
     public ClientePF getCliente() {
@@ -33,7 +39,7 @@ public class SeguroPF extends Seguro {
         this.cliente = cliente;
     }
 
-    // Métodos abstratos
+    
     
     public int obterQuantidadeSinistros(String cliente) {
         int quantidade_de_sinistros = 0;
@@ -50,48 +56,109 @@ public class SeguroPF extends Seguro {
         return quantidade_de_sinistros;
     }
     
-    public void calcularPrecoSeguroCliente(Cliente cliente) {
-    	
-        int quantidade_de_sinistros = obterQuantidadeSinistros(cliente.getNome());
-        String tipoCliente = cliente.getTipoCliente();
-        double precoSeguro;
+    //Para cada condutor da lista somamos o numero de sinistros vinculados a ele
+    public int quantidadeSinistrosCondutor() {
+        int totalSinistros = 0;
 
-        if (tipoCliente.equals("PF")) {
-            precoSeguro = ((ClientePF) cliente).calculaScore(cliente) * (1 + quantidade_de_sinistros);
-        } 
-        
-        else {
-            precoSeguro = ((ClientePJ) cliente).calculaScore(cliente) * (1 + quantidade_de_sinistros);
+        for (Condutor condutor : listaCondutores) {
+            totalSinistros += condutor.getListaSinistros().size();
         }
 
-        cliente.setValorSeguro(precoSeguro);
+        return totalSinistros;
     }
 
+ 
+
+ // Métodos abstratos implementados
     @Override
+    //desautoriza o condutor removendo o da lista de condutores
     public boolean desautorizarCondutor(Condutor condutor) {
-        return cliente.desautorizarCondutor(condutor);
-    }
-
-    @Override
-    public boolean autorizarCondutor(Condutor condutor) {
-        return cliente.autorizarCondutor(condutor);
-    }
-
-    @Override
-    public int calcularValor() {
-        return cliente.getQuantidadeVeiculos() * getValorMensal();
-    }
-
-    @Override
-    public boolean gerarSinistro(LocalDate data, String endereco, Condutor condutor) {
-        Veiculo veiculo = frota.buscarVeiculoPorCondutor(condutor);
-        if (veiculo == null) {
-            return false;
+  
+        for (Condutor c : listaCondutores) {
+            if (c.equals(condutor)) {
+                listaCondutores.remove(c);
+                System.out.println("Condutor removido com sucesso");
+                return true;
+            }
+            
         }
-        Sinistro sinistro = new Sinistro(data, endereco, condutor, this, veiculo);
-        getListaSinistros().add(sinistro);
-        veiculo.getListaSinistros().add(sinistro);
-        return true;
+
+        System.out.println("Condutor não encontrado na lista.");
+        return false;
+    }
+
+
+    @Override
+    //autoriza o condutor adicionando-o na lista de condutores
+    public boolean autorizarCondutor(Condutor condutor) {
+        if(listaCondutores.add(condutor)) {
+        	System.out.println("Condutor autorizado com sucesso");
+        	return true;
+        }
+        
+        System.out.println("Condutor não pode ser autorizado");
+        return false;
+    }
+
+    @Override
+    public double calcularValor() {
+    	 CalcSeguro fatorIdade;
+    	 
+    	 LocalDate dataAtual = LocalDate.now();
+         Period periodo = Period.between(cliente.getDataNasc(), dataAtual);
+         int idade = periodo.getYears();
+    	 
+ 	    
+ 	    if (idade <= 30) {
+ 	        fatorIdade = CalcSeguro.FATOR_18_30;
+ 	    } 
+ 	    
+ 	    else if (idade > 30 && idade <= 60) {
+ 	        fatorIdade = CalcSeguro.FATOR_30_60;
+ 	    } 
+ 	    
+ 	    else {
+ 	        fatorIdade = CalcSeguro.FATOR_60_90;
+ 	    }
+ 	    
+ 	    double valorBase = CalcSeguro.VALOR_BASE.getValor();
+ 	    double fator = fatorIdade.getValor();
+ 	    
+ 	    int quantidadeCarros = cliente.getListaVeiculos().size();
+ 	    int quantidadeSinistrosCliente = obterQuantidadeSinistros(cliente.getNome());
+ 	    int quantidadeSinistrosCondutor = quantidadeSinistrosCondutor();
+ 	    
+ 	    double valorSeguro = valorBase * fator * (1+1/(quantidadeCarros + 2)) *
+ 	    		(2+ quantidadeSinistrosCliente/10) *
+ 	    		(5 + quantidadeSinistrosCondutor/10);
+ 	    
+ 	    setValorMensal(valorSeguro);
+ 	    
+ 	    
+ 	    return valorSeguro;
+ 	}
+    
+
+    @Override
+    public boolean gerarSinistro(LocalDate data, String endereco,Seguradora seguradora, 
+			Veiculo veiculo, Cliente cliente, Condutor condutor,
+			Seguro seguro) {
+       
+        Sinistro sinistro = new Sinistro(data, endereco, seguradora, veiculo,cliente,
+        		condutor,seguro);
+        
+        
+        return getListaSinistros().add(sinistro);
+    }
+    
+    @Override
+    public String toString() {
+        return "SeguroPF{" +
+                "veiculo='" + veiculo + '\'' +
+                ", cliente='" + cliente + '\'' +
+                ", listaSinistros='" + listaSinistros + '\'' +
+                ", listaCondutores=" + listaCondutores +
+                '}';
     }
 }
 

@@ -59,8 +59,7 @@ public abstract class Cliente {
 		this.tipoCliente = tipoCliente;
 		
 	}
-    // Metodos abstratos
-    public abstract ArrayList<Sinistro> getSinistros();
     
-    public abstract ArrayList<Seguro> getSeguros();
+	public abstract String toString();
+  
 }

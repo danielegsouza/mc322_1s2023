@@ -34,4 +34,11 @@ public class Frota {
     public boolean removeVeiculo(Veiculo veiculo) {
         return this.listaVeiculos.remove(veiculo);
     }
+    
+    public String toString() {
+        return "Frota{" +
+                "code='" + code + '\'' +
+                ", listaVeiculos='" + listaVeiculos + '\'' +
+                '}';
+    }
 }

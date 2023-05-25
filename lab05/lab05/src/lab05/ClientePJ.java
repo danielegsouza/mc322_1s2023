@@ -7,13 +7,16 @@ public class ClientePJ extends Cliente {
     private final String cnpj;
     private LocalDate dataFundacao;
     private ArrayList<Frota> listaFrota;
+    private int qtdeFuncionarios;
     
     public ClientePJ(String nome, String telefone, String endereco,
-    		String email,String tipocliente, String cnpj, LocalDate dataFundacao) {
+    		String email,String tipoCliente, String cnpj, LocalDate dataFundacao,
+    		int qtdeFuncionarios) {
     	super(nome, telefone, endereco, email,tipoCliente);
         this.cnpj = cnpj;
         this.dataFundacao = dataFundacao;
         this.listaFrota = new ArrayList<Frota>();
+        this.qtdeFuncionarios = qtdeFuncionarios;
     }
     
     
@@ -38,7 +41,15 @@ public class ClientePJ extends Cliente {
         this.listaFrota = listaFrota;
     }
     
-    // Metodos
+    public int getQtdeFuncionarios() {
+        return qtdeFuncionarios;
+    }
+
+    public void setQtdeFuncionarios(int qtdeFuncionarios) {
+        this.qtdeFuncionarios = qtdeFuncionarios;
+    }
+    
+    // Metodos implementados
     public boolean cadastrarFrota(Frota frota) {
         return this.listaFrota.add(frota);
     }
@@ -64,4 +75,16 @@ public class ClientePJ extends Cliente {
         }
         return null;
     }
+    
+    public String toString() {
+        return "ClientePJ{" +
+                "cnpj='" + cnpj+ '\'' +
+                ", dataFundacao='" + dataFundacao + '\'' +
+                ", listaFrota='" + listaFrota + '\'' +
+                ", qtdeFuncionarios=" + qtdeFuncionarios +
+                '}';
+    }
+ 
+    
+   
 }

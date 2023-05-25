@@ -12,9 +12,9 @@ public abstract class Seguro {
     private Seguradora seguradora;
     private ArrayList<Sinistro> listaSinistros;
     private ArrayList<Condutor> listaCondutores;
-    private int valorMensal;
+    private double valorMensal;
     
-    public Seguro(LocalDate dataInicio,LocalDate dataFim, Seguradora seguradora, int valorMensal) {
+    public Seguro(LocalDate dataInicio,LocalDate dataFim, Seguradora seguradora, double valorMensal) {
     	Random random = new Random(); 
 		this.id = random.nextInt(10000);
         this.dataInicio = dataInicio;
@@ -70,19 +70,21 @@ public abstract class Seguro {
         this.listaCondutores = listaCondutores;
     }
     
-    public int getValorMensal() {
+    public double getValorMensal() {
         return valorMensal;
     }
     
-    public void setValorMensal(int valorMensal) {
+    public void setValorMensal(double valorMensal) {
         this.valorMensal = valorMensal;
     }
     
     //Metodos abstratos 
     public abstract boolean desautorizarCondutor(Condutor condutor);
     public abstract boolean autorizarCondutor(Condutor condutor);
-    public abstract int calcularValor();
-    public abstract boolean gerarSinistro(LocalDate data, String endereco, Condutor condutor);
+    public abstract double calcularValor();
+    public abstract boolean gerarSinistro(LocalDate data, String endereco,
+    		Seguradora seguradora, Veiculo veiculo, Cliente cliente,
+    		Condutor condutor,Seguro seguro);
 
    
 }

@@ -77,6 +77,17 @@ public class Condutor {
         this.listaSinistros.add(sinistro);
     }
     
-
+   
+    public String toString() {
+        return "Condutor{" +
+                "cpf='" + cpf + '\'' +
+                ", nome='" + nome + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", endereco=" + endereco +
+                ", email=" + email +
+                ", dataNascimento=" + dataNasc +
+                ", listaSinistros=" + listaSinistros +
+                '}';
+    }
 }
 
