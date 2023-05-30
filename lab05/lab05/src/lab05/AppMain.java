@@ -211,7 +211,9 @@ public class AppMain {
             System.out.println("5. Gerar Seguro PF");
             System.out.println("6. Gerar Seguro PJ");
             System.out.println("7. Gerar Sinistro PF");
-            System.out.println("8. Consultar Seguro PF");
+            System.out.println("8. Gerar Sinistro PJ");
+            System.out.println("9. Consultar Seguro PF");
+            System.out.println("10. Consultar Seguro PJ");
             System.out.println("0. Sair");
             System.out.print("Opção: ");
             int opcao = scanner.nextInt();
@@ -251,14 +253,24 @@ public class AppMain {
                 case 6:
                 	gerarSeguroPJ(seguradora);
                     break;
-
+                    
                 case 7:
                 	gerarSinistroPF(seguradora);
                     break;
-                    
+
                 case 8:
+                	System.out.print("Insira o nome do cliente: ");
+                    String nomeCliente = scanner.nextLine();
+                	gerarSinistroPJ(seguradora,nomeCliente);
+                    break;
+                    
+                case 9:
                 	consultarSeguroPF(seguradora);
                     break;
+                    
+                case 10:
+                	consultarSeguroPJ(seguradora);
+                    
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
@@ -424,6 +436,71 @@ public static void gerarSinistroPF(Seguradora seguradora) {
 	}
 }
 
+public static Condutor cadastrarCondutor() {
+	Scanner scanner = new Scanner(System.in);
+	
+	System.out.print("CPF do condutor: ");
+    String cpfcondutor = scanner.nextLine();
+
+    System.out.print("Nome do condutor: ");
+    String nomecondutor = scanner.nextLine();
+
+    System.out.print("Telefone do condutor: ");
+    String telefonecondutor = scanner.nextLine();
+
+    System.out.print("Endereço do condutor: ");
+    String enderecocondutor = scanner.nextLine();
+
+    System.out.print("Email do condutor: ");
+    String emailcondutor = scanner.nextLine();
+
+    System.out.print("Data de nascimento do condutor (YYYY-MM-DD): ");
+    String dataNascString = scanner.nextLine();
+    LocalDate dataNasccondutor = LocalDate.parse(dataNascString);
+    
+    Condutor condutor = new Condutor(cpfcondutor, nomecondutor, telefonecondutor, enderecocondutor,
+    		emailcondutor, dataNasccondutor);
+    
+    return condutor;
+
+}
+public static void gerarSinistroPJ(Seguradora seguradora, String nomeCliente) {
+	
+	// Obter a lista de seguros da seguradora
+	ArrayList<Seguro> listaSeguros = seguradora.getListaSeguros();
+	
+    SeguroPJ seguroPJ = null;
+    
+    // Buscar o seguro associado ao cliente PJ na lista de seguros
+    for (Seguro seguro : listaSeguros) {
+        if (seguro instanceof SeguroPJ && ((SeguroPJ)seguro).getCliente().getNome().equals(nomeCliente)) {
+            seguroPJ = (SeguroPJ) seguro;
+            break;
+        }
+    }
+    
+    // Verificar se o seguroPJ foi encontrado
+    if (seguroPJ != null) {
+    	
+    	Condutor condutor = cadastrarCondutor();
+    	
+        // Gerar um sinistro para o seguroPJ
+        LocalDate dataSinistro = LocalDate.now();
+        String enderecoSinistroPJ = "Endereco sinistro PJ";
+
+        Veiculo veiculo = cadastrarVeiculo();
+        ClientePJ clientePJ = seguroPJ.getCliente();
+        
+        seguroPJ.gerarSinistro(dataSinistro, enderecoSinistroPJ, seguradora, veiculo, 
+        		clientePJ,condutor, seguroPJ);
+
+        // Visualizar informações do seguro gerado
+        System.out.println(seguroPJ.toString() + '\n');
+    } else {
+        System.out.println("Nenhum seguro encontrado para o cliente PJ: " + nomeCliente);
+    }
+}
+
 public static void consultarSeguroPF(Seguradora seguradora) {
     // Obter a lista de seguros da seguradora
     ArrayList<Seguro> listaSeguros = seguradora.getListaSeguros();
@@ -436,6 +513,23 @@ public static void consultarSeguroPF(Seguradora seguradora) {
             SeguroPF seguroPF = (SeguroPF) seguro; 
             // Imprimir informações do seguro PF
             System.out.println(seguroPF.toString());
+          
+        }
+    }
+}
+
+public static void consultarSeguroPJ(Seguradora seguradora) {
+    // Obter a lista de seguros da seguradora
+    ArrayList<Seguro> listaSeguros = seguradora.getListaSeguros();
+
+    System.out.println("Seguros PJ cadastrados na seguradora:");
+
+    // Percorrer a lista de seguros e imprimir apenas os seguros do tipo PJ
+    for (Seguro seguro : listaSeguros) {
+        if (seguro instanceof SeguroPJ) {
+            SeguroPJ seguroPJ = (SeguroPJ) seguro; 
+            // Imprimir informações do seguro PJ
+            System.out.println(seguroPJ.toString());
           
         }
     }
