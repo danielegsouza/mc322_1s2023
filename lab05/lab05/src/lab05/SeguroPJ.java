@@ -20,7 +20,7 @@ public class SeguroPJ extends Seguro {
         this.cliente = cliente;
     }
 
-    // Getters and setters
+    // Getters e setters
     public Frota getFrota() {
         return frota;
     }
@@ -38,6 +38,8 @@ public class SeguroPJ extends Seguro {
     }
 
     //Metodos implementados
+    
+    //Procura na lista de sinistros quantos sinistros tem aquele cliente associado 
     public int obterQuantidadeSinistros(String cliente) {
         int quantidade_de_sinistros = 0;
         
@@ -57,6 +59,7 @@ public class SeguroPJ extends Seguro {
     public int quantidadeSinistrosCondutor() {
         int totalSinistros = 0;
 
+        //Cada condutor possui uma lista de sinistros
         for (Condutor condutor : listaCondutores) {
             totalSinistros += condutor.getListaSinistros().size();
         }
@@ -71,6 +74,7 @@ public class SeguroPJ extends Seguro {
     public boolean desautorizarCondutor(Condutor condutor) {
   
         for (Condutor c : listaCondutores) {
+        	
             if (c.equals(condutor)) {
                 listaCondutores.remove(c);
                 System.out.println("Condutor removido com sucesso");
@@ -87,9 +91,10 @@ public class SeguroPJ extends Seguro {
     @Override
     //autoriza o condutor adicionando-o na lista de condutores
     public boolean autorizarCondutor(Condutor condutor) {
+    	
         if(listaCondutores.add(condutor)) {
-        	System.out.println("Condutor autorizado com sucesso");
-        	return true;
+	        	System.out.println("Condutor autorizado com sucesso");
+	        	return true;
         }
         
         System.out.println("Condutor não pode ser autorizado");
@@ -97,30 +102,36 @@ public class SeguroPJ extends Seguro {
     }
 
     @Override
+    //Calcula valor do seguro de um cliente PJ
+    
     public double calcularValor() {
+    	
     	double valorBase = CalcSeguro.VALOR_BASE.getValor();
     	int quantidadeFunc = cliente.getQtdeFuncionarios();
     	int quantidadeVeiculos = frota.getListaVeiculos().size();
     	
+    	//Calcula ano de fundacao com base na data de fundacao
     	LocalDate dataAtual = LocalDate.now();
-        Period periodo = Period.between(cliente.getDataFundacao(), dataAtual);
-        int AnosPosFundacao = periodo.getYears();
-    	
-        int quantidadeSinistrosCliente = obterQuantidadeSinistros(cliente.getNome());
- 	    int quantidadeSinistrosCondutor = quantidadeSinistrosCondutor();
- 	    
- 	    double valorSeguro = (valorBase * (10+ (quantidadeFunc)/10) *
-    			(1+ 1/(quantidadeVeiculos+2)) *
-    			(1 + 1 /(AnosPosFundacao+2)) *
-    			(2 + quantidadeSinistrosCliente/10) *
-    			(5 + quantidadeSinistrosCondutor/10)
-    			);
- 	    setValorMensal(valorSeguro);
- 	    
-    	return valorSeguro;
+    Period periodo = Period.between(cliente.getDataFundacao(), dataAtual);
+    int AnosPosFundacao = periodo.getYears();
+	
+    int quantidadeSinistrosCliente = obterQuantidadeSinistros(cliente.getNome());
+    int quantidadeSinistrosCondutor = quantidadeSinistrosCondutor();
+    
+    double valorSeguro = (valorBase * (10+ (quantidadeFunc)/10) *
+			(1+ 1/(quantidadeVeiculos+2)) *
+			(1 + 1 /(AnosPosFundacao+2)) *
+			(2 + quantidadeSinistrosCliente/10) *
+			(5 + quantidadeSinistrosCondutor/10)
+			);
+    
+    setValorMensal(valorSeguro); //atualiza valor do atributo valorSeguro
+    
+	return valorSeguro;
     	
     }
-
+ 
+    //Metodo responsavel por gerar(instanciar) um seguro 
     @Override
     public boolean gerarSinistro(LocalDate data, String endereco,Seguradora seguradora, 
 			Veiculo veiculo, Cliente cliente, Condutor condutor,

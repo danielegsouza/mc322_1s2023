@@ -22,7 +22,7 @@ public class Condutor {
         this.listaSinistros = new ArrayList<Sinistro>();
     }
     
-    // getters and setters
+    // Getters e setters
     public String getCpf() {
         return cpf;
     }
@@ -73,6 +73,8 @@ public class Condutor {
     
     
     //Metodos implementados
+    
+    //Adiciona um sinistro da lista de sinistros de um condutor
     public void addSinistro(Sinistro sinistro) {
         this.listaSinistros.add(sinistro);
     }

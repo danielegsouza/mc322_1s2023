@@ -25,7 +25,7 @@ public abstract class Seguro {
         this.valorMensal = valorMensal;
     }
     
-    // Getters and setters
+    // Getters e setters
     public int getId() {
         return id;
     }
@@ -79,12 +79,13 @@ public abstract class Seguro {
     }
     
     //Metodos abstratos 
+    
     public abstract boolean desautorizarCondutor(Condutor condutor);
     public abstract boolean autorizarCondutor(Condutor condutor);
     public abstract double calcularValor();
     public abstract boolean gerarSinistro(LocalDate data, String endereco,
     		Seguradora seguradora, Veiculo veiculo, Cliente cliente,
     		Condutor condutor,Seguro seguro);
-
+    public abstract String toString();
    
 }

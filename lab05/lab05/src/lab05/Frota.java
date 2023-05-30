@@ -11,15 +11,13 @@ public class Frota {
         this.listaVeiculos = new ArrayList<Veiculo>();
     }
     
-    // Getters and setters
+    // Getters e setters
     
     public String getCode() {
         return code;
     }
     
-    public void setCode(String code) {
-        this.code = code;
-    }
+   
     
     public ArrayList<Veiculo> getListaVeiculos() {
         return listaVeiculos;
@@ -27,10 +25,12 @@ public class Frota {
     
     // Metodos implementados
     
+    //Adiciona veiculo a lista de veiculos de uma frota
     public boolean addVeiculo(Veiculo veiculo) {
         return this.listaVeiculos.add(veiculo);
     }
     
+    //Remove veiculo da lista de veiculos de uma frota
     public boolean removeVeiculo(Veiculo veiculo) {
         return this.listaVeiculos.remove(veiculo);
     }

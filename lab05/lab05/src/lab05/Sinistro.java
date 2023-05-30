@@ -32,6 +32,8 @@ public class Sinistro {
 		
 	}
 	
+	//Getters e setters
+	
 	public int getId(){
 		return id;
 	}
@@ -92,6 +94,7 @@ public class Sinistro {
         this.seguro = seguro;
     }
 
+    // Método toString para visualizar atributos da classe
    
     public String toString() {
         return "Sinistro{" +

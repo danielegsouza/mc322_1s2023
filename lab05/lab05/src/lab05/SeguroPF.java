@@ -22,7 +22,7 @@ public class SeguroPF extends Seguro {
         
     }
 
-    // Getters and setters
+    // Getters e setters
     public Veiculo getVeiculo() {
         return veiculo;
     }
@@ -40,7 +40,9 @@ public class SeguroPF extends Seguro {
     }
 
     
+    //Metodos implementados
     
+    //Procura na lista de sinistros quantos sinistros tem aquele cliente associado 
     public int obterQuantidadeSinistros(String cliente) {
         int quantidade_de_sinistros = 0;
         
@@ -69,9 +71,12 @@ public class SeguroPF extends Seguro {
 
  
 
- // Métodos abstratos implementados
+    // Métodos abstratos implementados
+    
+    
     @Override
     //desautoriza o condutor removendo o da lista de condutores
+    
     public boolean desautorizarCondutor(Condutor condutor) {
   
         for (Condutor c : listaCondutores) {
@@ -91,6 +96,7 @@ public class SeguroPF extends Seguro {
     @Override
     //autoriza o condutor adicionando-o na lista de condutores
     public boolean autorizarCondutor(Condutor condutor) {
+    	
         if(listaCondutores.add(condutor)) {
         	System.out.println("Condutor autorizado com sucesso");
         	return true;
@@ -101,44 +107,47 @@ public class SeguroPF extends Seguro {
     }
 
     @Override
+    //Calcula valor do seguro de um cliente PJ
     public double calcularValor() {
-    	 CalcSeguro fatorIdade;
+	 CalcSeguro fatorIdade;
+	 
+	 //Calcula idade com base na data de nascimento
+	 LocalDate dataAtual = LocalDate.now();
+     Period periodo = Period.between(cliente.getDataNasc(), dataAtual);
+     int idade = periodo.getYears();
     	 
-    	 LocalDate dataAtual = LocalDate.now();
-         Period periodo = Period.between(cliente.getDataNasc(), dataAtual);
-         int idade = periodo.getYears();
-    	 
- 	    
- 	    if (idade <= 30) {
- 	        fatorIdade = CalcSeguro.FATOR_18_30;
- 	    } 
- 	    
- 	    else if (idade > 30 && idade <= 60) {
- 	        fatorIdade = CalcSeguro.FATOR_30_60;
- 	    } 
- 	    
- 	    else {
- 	        fatorIdade = CalcSeguro.FATOR_60_90;
- 	    }
- 	    
- 	    double valorBase = CalcSeguro.VALOR_BASE.getValor();
- 	    double fator = fatorIdade.getValor();
- 	    
- 	    int quantidadeCarros = cliente.getListaVeiculos().size();
- 	    int quantidadeSinistrosCliente = obterQuantidadeSinistros(cliente.getNome());
- 	    int quantidadeSinistrosCondutor = quantidadeSinistrosCondutor();
- 	    
- 	    double valorSeguro = valorBase * fator * (1+1/(quantidadeCarros + 2)) *
- 	    		(2+ quantidadeSinistrosCliente/10) *
- 	    		(5 + quantidadeSinistrosCondutor/10);
- 	    
- 	    setValorMensal(valorSeguro);
- 	    
- 	    
- 	    return valorSeguro;
+    
+    if (idade <= 30) {
+        fatorIdade = CalcSeguro.FATOR_18_30;
+    } 
+    
+    else if (idade > 30 && idade <= 60) {
+        fatorIdade = CalcSeguro.FATOR_30_60;
+    } 
+    
+    else {
+        fatorIdade = CalcSeguro.FATOR_60_90;
+    }
+    
+    double valorBase = CalcSeguro.VALOR_BASE.getValor();
+    double fator = fatorIdade.getValor();
+    
+    int quantidadeCarros = cliente.getListaVeiculos().size();
+    int quantidadeSinistrosCliente = obterQuantidadeSinistros(cliente.getNome());
+    int quantidadeSinistrosCondutor = quantidadeSinistrosCondutor();
+    
+    double valorSeguro = valorBase * fator * (1+1/(quantidadeCarros + 2)) *
+    		(2+ quantidadeSinistrosCliente/10) *
+    		(5 + quantidadeSinistrosCondutor/10);
+    
+    setValorMensal(valorSeguro); //atualiza valor do atributo valorSeguro
+    
+    
+    return valorSeguro;
  	}
     
 
+    //Metodo responsavel por gerar(instanciar) um seguro 
     @Override
     public boolean gerarSinistro(LocalDate data, String endereco,Seguradora seguradora, 
 			Veiculo veiculo, Cliente cliente, Condutor condutor,

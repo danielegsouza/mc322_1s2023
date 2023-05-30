@@ -74,9 +74,10 @@ public class ClientePF extends Cliente {
     @Override
     public String toString() {
         return "ClientePF{" +
-                "cpf='" + cpf + '\'' +
-                ", genero='" + genero + '\'' +
-                ", educacao='" + educacao + '\'' +
+        		"Nome ='" + cpf + '\'' +
+                "cpf ='" + cpf + '\'' +
+                ", genero ='" + genero + '\'' +
+                ", educacao ='" + educacao + '\'' +
                 ", dataNascimento=" + dataNasc +
                 '}';
     }

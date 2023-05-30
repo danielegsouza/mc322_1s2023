@@ -20,7 +20,7 @@ public class ClientePJ extends Cliente {
     }
     
     
-    // Getters and setters
+    // Getters e setters
     public String getCnpj() {
         return cnpj;
     }
@@ -50,6 +50,8 @@ public class ClientePJ extends Cliente {
     }
     
     // Metodos implementados
+    
+    //Adiciona uma frota a lista de frotas de um cliente PJ
     public boolean cadastrarFrota(Frota frota) {
         return this.listaFrota.add(frota);
     }
@@ -66,7 +68,9 @@ public class ClientePJ extends Cliente {
         return false;
     }
     
-    //Procura uma frota na lista de frotas com o mesmo Code, se encontrado retorna os veiculos daquela frota
+    //Procura uma frota na lista de frotas com o mesmo Code,
+    //se encontrado retorna os veiculos daquela frota
+    
     public ArrayList<Veiculo> getVeiculosPorFrota(Frota frota) {
         for (int i = 0; i < listaFrota.size(); i++) {
             if (listaFrota.get(i).getCode() == frota.getCode()) {
