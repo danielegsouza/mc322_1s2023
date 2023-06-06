@@ -56,8 +56,8 @@ public class ClientePJ extends Cliente {
         return this.listaFrota.add(frota);
     }
     
-    //atualiza lista de veiculos de uma frota
-    //duvida aqui
+    //atualiza lista a frota do cliente com a nova frota passada como parametro
+    
     public boolean atualizarFrota(Frota frota) {
         for (int i = 0; i < listaFrota.size(); i++) {
             if (listaFrota.get(i).getCode() == frota.getCode()) {

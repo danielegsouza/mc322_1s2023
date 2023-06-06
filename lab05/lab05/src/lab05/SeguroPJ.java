@@ -140,7 +140,8 @@ public class SeguroPJ extends Seguro {
         Sinistro sinistro = new Sinistro(data, endereco, seguradora, veiculo,cliente,
         		condutor,seguro);
         
-        
+      //atualiza listaSinistros da seguradora
+        seguradora.getListaSinistros().add(sinistro);        
         return getListaSinistros().add(sinistro);
     }
     
@@ -148,9 +149,9 @@ public class SeguroPJ extends Seguro {
     @Override
     public String toString() {
         return "SeguroPJ{" +
-                "frota='" + frota + '\'' +
-                ", cliente='" + cliente + '\'' +
-                ", listaSinistros='" + listaSinistros + '\'' +
+                "frota ='" + frota + '\'' +
+                ", cliente ='" + cliente + '\'' +
+                ", listaSinistros ='" + listaSinistros + '\'' +
                 ", listaCondutores=" + listaCondutores +
                 '}';
     }

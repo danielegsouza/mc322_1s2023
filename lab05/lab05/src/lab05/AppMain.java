@@ -165,13 +165,15 @@ public class AppMain {
 	// Obter a lista de sinistros da seguradora
 	ArrayList<Sinistro> listaSinistros = seguradora.getListaSinistros();
 	
-//	Sinistro ultimoSinistro = listaSinistros.get(listaSinistros.size() - 1);
-	//ultimoSinistro.toString();
+	Sinistro ultimoSinistro = listaSinistros.get(listaSinistros.size() -1);
+	System.out.println(ultimoSinistro.toString()+'\n');
+
 	
 	System.out.println(veiculo1.toString()+'\n');
 	System.out.println(veiculo2.toString()+'\n');
 	System.out.println(veiculo3.toString()+'\n');
 	
+	//chama a funcao menu de operacoes
 	menu();
 }
 
@@ -179,6 +181,7 @@ public class AppMain {
         
         Scanner scanner = new Scanner(System.in);
         
+        //A primeira coisa a ser feita é o cadastro de uma seguradora
         System.out.println("Para iniciar cadastre um Seguradora\n");
         
         System.out.print("CNPJ da Seguradora: ");
@@ -206,8 +209,8 @@ public class AppMain {
             System.out.println("MENU");
             System.out.println("1. Cadastrar Cliente PF");
             System.out.println("2. Cadastrar Cliente PJ");
-            System.out.println("3. Cadastrar Veículo");
-            System.out.println("4. Cadastrar Frota");
+            System.out.println("3. Cadastrar Veículo (Apenas Clientes PF)");
+            System.out.println("4. Cadastrar Frota (Apenas Clientes PJ)");
             System.out.println("5. Gerar Seguro PF");
             System.out.println("6. Gerar Seguro PJ");
             System.out.println("7. Gerar Sinistro PF");
@@ -220,37 +223,45 @@ public class AppMain {
 
             switch (opcao) {
                 case 0:
-                    System.out.println("Encerrar o programa");
+                    System.out.println("Encerrando o programa");
                     return;
 
                 case 1:
+                	//cria um objeto do tipo ClientePF e adiciona na lista 
+                	//de clientes da seguradora
                     ClientePF clientePF = cadastrarClientePF();
                     seguradora.cadastrarCliente(clientePF);
                     System.out.println("Cliente PF cadastrado com sucesso!");
                     break;
 
                 case 2:
+                	//cria um objeto do tipo ClientePJ e adiciona na lista 
+                	//de clientes da seguradora
                     ClientePJ clientePJ = cadastrarClientePJ();
                     seguradora.cadastrarCliente(clientePJ);
                     System.out.println("Cliente PJ cadastrado com sucesso!");
                     break;
 
                 case 3:
-                    cadastrarVeiculo();
+                	//Cadastra um veiculo no ultimo cliente PF cadastrado
+                    cadastrarVeiculoPF(seguradora,"PF");
                     System.out.println("Veículo cadastrado com sucesso!");
                     break;
 
                 case 4:
+                	//cadastra uma frota com varios veiculos
                     Frota frota = new Frota("Frota A");
                     cadastrarFrota(frota);
                     System.out.println("Frota cadastrada com sucesso!");
                     break;
 
                 case 5:
+                	//gera um seguro associado a uma PF
                     	gerarSeguroPF(seguradora);
                     break;
 
                 case 6:
+                	//gera um seguro associado a uma PJ
                 	gerarSeguroPJ(seguradora);
                     break;
                     
@@ -330,9 +341,8 @@ public class AppMain {
 	    
 	    System.out.print("Email: ");
 	    String email = scanner.nextLine();
-	    
-	    System.out.print("Tipo de Cliente: ");
-	    String tipoCliente = scanner.nextLine();
+	   
+	    String tipoCliente = "PJ";
 	    
 	    System.out.print("CNPJ: ");
 	    String cnpj = scanner.nextLine();
@@ -347,7 +357,52 @@ public class AppMain {
 	    		cnpj, dataFundacao, qtdeFuncionarios);
 	}
 
- public static Veiculo cadastrarVeiculo() {
+ public static Veiculo cadastrarVeiculoPF(Seguradora seguradora, String tipoCliente) {
+	    Scanner scanner = new Scanner(System.in);
+
+	    System.out.println("CADASTRO DE VEÍCULO");
+	    System.out.print("Placa: ");
+	    String placa = scanner.nextLine();
+	    
+	    System.out.print("Marca: ");
+	    String marca = scanner.nextLine();
+	    
+	    System.out.print("Modelo: ");
+	    String modelo = scanner.nextLine();
+	    System.out.print("Ano de Fabricação: ");
+	    int anoFabricacao = scanner.nextInt();
+	    scanner.nextLine(); 
+	    
+	    Veiculo veiculo = new Veiculo(placa, marca, modelo, anoFabricacao);
+	    
+	    //obtem a lista de clientes da seguradora e pega o ultimo cliente PF
+	    ArrayList<Cliente> listaClientes = seguradora.getListaClientes();
+	    
+	    Cliente ultimoCliente = null;
+	    for (int i = listaClientes.size() - 1; i >= 0; i--) {
+	        Cliente cliente = listaClientes.get(i);
+	        if (cliente.getTipoCliente().equals(tipoCliente)) {
+	            ultimoCliente = cliente;
+	            break;
+	        }
+	    }
+
+	    if (ultimoCliente != null) {
+	        if (tipoCliente.equals("PF")) {
+	            ClientePF clientePF = (ClientePF) ultimoCliente;
+	            clientePF.cadastrarVeiculo(veiculo);
+	            System.out.println("Veículo cadastrado com sucesso para o cliente PF: " + clientePF.getNome());
+	        } 
+	    } 
+	    else {
+	        System.out.println("Nenhum cliente do tipo " + tipoCliente + " encontrado na seguradora.");
+	    }
+	   
+	    return veiculo;
+	}
+ 
+ //Utilizado para cadastrar veiculos na frota
+ public static Veiculo cadastrarVeiculoPJ() {
 	    Scanner scanner = new Scanner(System.in);
 
 	    System.out.println("CADASTRO DE VEÍCULO");
@@ -364,8 +419,8 @@ public class AppMain {
 	    scanner.nextLine(); 
 	    
 	    return new Veiculo(placa, marca, modelo, anoFabricacao);
-	}
-
+}
+ 
  public static void cadastrarFrota(Frota frota) {
 	    Scanner scanner = new Scanner(System.in);
 
@@ -377,7 +432,7 @@ public class AppMain {
 	    for (int i = 0; i < numVeiculos; i++) {
 	        System.out.println("\nCadastro do Veículo " + (i + 1));
 	        
-	        Veiculo veiculo = cadastrarVeiculo();
+	        Veiculo veiculo = cadastrarVeiculoPJ();
 	        frota.addVeiculo(veiculo);
 	    }
 	    System.out.println("\nFrota cadastrada com sucesso!");
@@ -389,7 +444,7 @@ public static void gerarSeguroPF(Seguradora seguradora) {
 	LocalDate dataInicio = LocalDate.now();
 	LocalDate dataFim = dataInicio.plusYears(1);
 	ClientePF clientepf = cadastrarClientePF(); //Cadastra um cliente do tipo PF
-	Veiculo veiculo = cadastrarVeiculo(); // Método para cadastrar o veículo desejado
+	Veiculo veiculo = cadastrarVeiculoPF(seguradora, "PF"); // Método para cadastrar o veículo desejado
 	
 	seguradora.gerarSeguro("PF", dataInicio, dataFim, seguradora, 0.0, null, 
 			veiculo,clientepf);
@@ -424,7 +479,7 @@ public static void gerarSinistroPF(Seguradora seguradora) {
 	    // Gerando um sinistro para o SeguroPF, que e o ultimo seguro gerado
 	    LocalDate dataSinistro = LocalDate.now();
 	    String enderecoSinistro = "Endereco sinistro PF";
-	    Veiculo veiculo = cadastrarVeiculo();
+	    Veiculo veiculo = cadastrarVeiculoPF(seguradora,"PF");
 	    ClientePF clientePF = cadastrarClientePF();
 	    
 	    ultimoSeguroPF.gerarSinistro(dataSinistro, enderecoSinistro,
@@ -436,6 +491,7 @@ public static void gerarSinistroPF(Seguradora seguradora) {
 	}
 }
 
+//utilizada na funcao de gerar Sinistro PJ
 public static Condutor cadastrarCondutor() {
 	Scanner scanner = new Scanner(System.in);
 	
@@ -488,7 +544,7 @@ public static void gerarSinistroPJ(Seguradora seguradora, String nomeCliente) {
         LocalDate dataSinistro = LocalDate.now();
         String enderecoSinistroPJ = "Endereco sinistro PJ";
 
-        Veiculo veiculo = cadastrarVeiculo();
+        Veiculo veiculo = cadastrarVeiculoPJ();
         ClientePJ clientePJ = seguroPJ.getCliente();
         
         seguroPJ.gerarSinistro(dataSinistro, enderecoSinistroPJ, seguradora, veiculo, 

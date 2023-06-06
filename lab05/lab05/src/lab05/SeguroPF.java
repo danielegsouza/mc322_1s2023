@@ -156,6 +156,8 @@ public class SeguroPF extends Seguro {
         Sinistro sinistro = new Sinistro(data, endereco, seguradora, veiculo,cliente,
         		condutor,seguro);
         
+        //atualiza listaSinistros da seguradora
+        seguradora.getListaSinistros().add(sinistro);  
         
         return getListaSinistros().add(sinistro);
     }
